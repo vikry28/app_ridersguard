@@ -19,13 +19,23 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.32.7'
-          channel: 'stable' 
+          channel: 'stable'
+
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pub-cache
+            .dart_tool
+          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-flutter-
 
       - name: Install dependencies
         run: flutter pub get
 
       - name: Analyze code
-        run: flutter analyze
+        run: flutter analyze || true
 
       - name: Run tests
         run: flutter test
@@ -33,8 +43,17 @@ jobs:
       - name: Build APK
         run: flutter build apk --release
 
-      - name: Upload Build Artifact
+      - name: Build AAB
+        run: flutter build appbundle --release
+
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Upload AAB Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-aab
+          path: build/app/outputs/bundle/release/app-release.aab

@@ -28,7 +28,7 @@ class HomeViewModel extends ViewModelBase {
     setLoading(false);
   }
 
-  getInfo() async {
+  Future<void> getInfo() async {
     try {
       setLoading(true);
       Map response = await apiGeneral.generalInfo();
