@@ -46,10 +46,10 @@ jobs:
       - name: Run tests
         run: flutter test
 
-      - name: Clean Gradle properties (remove Windows java path)
+      - name: Remove invalid Gradle Java path (Windows only setting)
         run: |
-          rm -f android/gradle.properties
-          echo "org.gradle.jvmargs=-Xmx4096M" > android/gradle.properties
+          sed -i '/org.gradle.java.home/d' android/gradle.properties
+
 
       - name: Build APK
         run: flutter build apk --release
