@@ -2,9 +2,12 @@ name: Flutter CI/CD
 
 on:
   push:
-    branches: [dev]
+    branches:
+      - dev
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   build:
@@ -50,20 +53,23 @@ jobs:
         run: |
           sed -i '/org.gradle.java.home/d' android/gradle.properties
 
-
-      - name: Build APK
+      - name: Build APK (only on main)
+        if: github.ref == 'refs/heads/main'
         run: flutter build apk --release
 
-      - name: Build AAB
+      - name: Build AAB (only on main)
+        if: github.ref == 'refs/heads/main'
         run: flutter build appbundle --release
 
-      - name: Upload APK Artifact
+      - name: Upload APK Artifact (only on main)
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v4
         with:
           name: release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
 
-      - name: Upload AAB Artifact
+      - name: Upload AAB Artifact (only on main)
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v4
         with:
           name: release-aab
