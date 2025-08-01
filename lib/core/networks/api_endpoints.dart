@@ -2,10 +2,10 @@ enum Environment { dev, prod }
 
 class ApiEndpoints {
   /// Base URLs for different environments Api
-  static const _devBaseUrl = 'https://dev-api.example.com';
+  static const _devBaseUrl = 'https://dev-api-bikersguard.up.railway.app/api';
   static const _prodBaseUrl = 'https://api.example.com';
 
-  static Environment environment = Environment.dev; // Ubah ini saat build
+  static Environment environment = Environment.dev;
 
   static String get baseUrl {
     switch (environment) {

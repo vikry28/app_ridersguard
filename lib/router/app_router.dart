@@ -1,6 +1,8 @@
 import 'package:app_riderguard/module/general/view/home_view.dart';
 import 'package:app_riderguard/module/general/view/bottom_nav_home_view.dart';
+import 'package:app_riderguard/module/general/view/onboarding/onboarding_view.dart';
 import 'package:app_riderguard/module/general/view/splash_view.dart';
+import 'package:app_riderguard/module/user/auth/view/login_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +13,14 @@ class AppRouter {
       GoRoute(
         path: '/',
         builder: (context, state) => const SplashView(),
+      ),
+      GoRoute(
+        path: '/onboarding',
+        builder: (context, state) => const OnboardingView(),
+      ),
+      GoRoute(
+        path: '/login',
+        builder: (context, state) => const LoginView(),
       ),
       ShellRoute(
         builder: (context, state, child) => BottomNavHomeView(child: child),

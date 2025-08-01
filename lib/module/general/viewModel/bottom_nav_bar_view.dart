@@ -23,8 +23,8 @@ class BottomNavBarView extends ViewModelBase {
 
   @override
   Future<void> init() async {
-    setLoading(true);
-    await Future.delayed(const Duration(milliseconds: 500));
-    setLoading(false);
+    // setLoading(true);
+    // setLoading(false);
+    // notifyListeners();
   }
 }

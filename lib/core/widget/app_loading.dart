@@ -1,31 +1,33 @@
+import 'package:app_riderguard/core/utils/assets_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 
-class AppLoadingOverlay extends StatelessWidget {
-  const AppLoadingOverlay({super.key});
+class LoadingOverlay extends StatelessWidget {
+  final bool isLoading;
+  final Widget child;
+
+  const LoadingOverlay({
+    super.key,
+    required this.isLoading,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Stack(
+    return Stack(
       children: [
-        // Lapisan semi-transparan
-        Opacity(
-          opacity: 0.3,
-          child: ModalBarrier(
-            dismissible: false,
-            color: Colors.black,
-          ),
-        ),
-        // Animasi loading
-        Center(
-          child: SizedBox(
-            height: 64,
-            width: 64,
-            child: CircularProgressIndicator(
-              strokeWidth: 6,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+        child,
+        if (isLoading)
+          Center(
+            child: Lottie.asset(
+              AssetsHelper.loading,
+              width: 100.w,
+              height: 100.w,
+              fit: BoxFit.contain,
+              repeat: true,
             ),
           ),
-        ),
       ],
     );
   }

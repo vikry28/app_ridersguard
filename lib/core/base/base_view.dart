@@ -1,3 +1,4 @@
+import 'package:app_riderguard/core/widget/app_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'view_model_base.dart';
@@ -37,6 +38,9 @@ class BaseView<T extends ViewModelBase> extends ConsumerWidget {
       onModelReady?.call(viewModel);
     });
 
-    return builder(context, viewModel, ref);
+    return LoadingOverlay(
+      isLoading: viewModel.isLoading,
+      child: builder(context, viewModel, ref),
+    );
   }
 }

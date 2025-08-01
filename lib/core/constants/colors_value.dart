@@ -15,6 +15,7 @@ class ColorsValue {
 
   // Alert colors
   static const Color alertYellow = Color(0xFFFFF9C4); // approx yellow[100]
+  static const Color alertGren = Colors.green;
   static const Color alertOrange = Colors.orange;
   static const Color alertOrangeBorder = Colors.orangeAccent;
 

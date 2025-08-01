@@ -1,5 +1,16 @@
 {
   "app_name": "RidersGuard",
+  "greeting": "Halo, selamat datang",
+  "login_prompt": "Silakan login untuk melanjutkan.",
+  "username_or_email": "Username atau E-mail",
+  "email_placeholder": "contoh@email.com",
+  "password_placeholder": "••••••••",
+  "or_login_with": "Atau masuk dengan",
+  "sign_up": "Daftar",
+  "agree_terms": "Dengan melanjutkan, Anda menyetujui ",
+  "terms_of_use": "Syarat Penggunaan",
+  "and": "dan",
+  "privacy_policy": "Kebijakan Privasi",
   "login": "Masuk",
   "logout": "Keluar",
   "email": "Email",
@@ -41,5 +52,11 @@
   "enable_location": "Silakan aktifkan layanan lokasi",
   "logout_confirm": "Apakah Anda yakin ingin keluar?",
   "yes": "Ya",
-  "no": "Tidak"
+  "no": "Tidak",
+  "onboarding_title_1": "Touring Lebih Aman & Terencana",
+  "onboarding_subtitle_1": "RidersGuard bantu kamu merencanakan dan memantau perjalanan touring dengan aman.",
+  "onboarding_title_2": "Cek Kondisi Motor Berkala",
+  "onboarding_subtitle_2": "Pantau kesehatan motor kamu sebelum dan sesudah touring tanpa ribet.",
+  "onboarding_title_3": "Catat & Simpan Riwayat Motor",
+  "onboarding_subtitle_3": "Seluruh data motor dan jadwal servis tersimpan rapi dalam satu aplikasi."
 }

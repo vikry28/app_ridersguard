@@ -1,5 +1,5 @@
 import 'package:app_riderguard/core/base/base_view.dart';
-import 'package:app_riderguard/module/general/viewModel/widget/bottom_nav_bar.dart';
+import 'package:app_riderguard/module/general/widget/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import '../viewModel/bottom_nav_bar_view.dart';
 

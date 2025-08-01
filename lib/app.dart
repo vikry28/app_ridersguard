@@ -1,8 +1,8 @@
+import 'package:app_riderguard/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/constants/themes.dart';
 import 'core/localization/localization_delegate.dart';
-import 'router/app_router.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MyApp extends StatelessWidget {
@@ -20,6 +20,14 @@ class MyApp extends StatelessWidget {
           theme: AppThemes.lightTheme,
           debugShowCheckedModeBanner: false,
           supportedLocales: const [Locale('en'), Locale('id')],
+          localeResolutionCallback: (locale, supportedLocales) {
+            for (var supportedLocale in supportedLocales) {
+              if (supportedLocale.languageCode == locale?.languageCode) {
+                return supportedLocale;
+              }
+            }
+            return supportedLocales.first;
+          },
           localizationsDelegates: const [
             AppLocalizationsDelegate(),
             GlobalMaterialLocalizations.delegate,

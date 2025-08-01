@@ -43,6 +43,7 @@ flutter:
   assets:
     - assets/lang/
     - assets/animations/
+    - assets/images/
 
   # Optional jika tidak pakai google_fonts dan ingin register manual fonts
   # fonts:

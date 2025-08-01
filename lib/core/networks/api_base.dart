@@ -120,26 +120,40 @@ class ApiBase {
   }
 
   Future<dynamic> _decodeResponse(http.Response response) async {
+    final String bodyString = response.body;
+    Map<String, dynamic>? parsedBody;
+
+    try {
+      parsedBody = jsonDecode(bodyString);
+    } catch (_) {}
+
     if (response.statusCode == 401) {
       await _clearSession();
-      throw Exception('Unauthorized. Please login again.');
+      throw ApiException('Unauthorized. Please login again.',
+          responseBody: parsedBody);
     }
 
     if (response.statusCode >= 400) {
-      throw Exception(
-        'Error ${response.statusCode}: ${response.reasonPhrase}\n${response.body}',
-      );
+      final errorMsg = parsedBody?['message'] ??
+          'Error ${response.statusCode}: ${response.reasonPhrase}';
+      throw ApiException(errorMsg, responseBody: parsedBody);
     }
 
-    try {
-      return jsonDecode(response.body);
-    } catch (e) {
-      throw Exception('Failed to decode JSON: ${response.body}');
-    }
+    return parsedBody;
   }
 
   Future<void> _clearSession() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
   }
+}
+
+class ApiException implements Exception {
+  final String message;
+  final Map<String, dynamic>? responseBody;
+
+  ApiException(this.message, {this.responseBody});
+
+  @override
+  String toString() => message;
 }

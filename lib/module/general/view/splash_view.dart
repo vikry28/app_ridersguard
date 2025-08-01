@@ -1,4 +1,5 @@
 import 'package:app_riderguard/core/utils/assets_helper.dart';
+import 'package:app_riderguard/core/utils/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -38,9 +39,14 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   }
 
   Future<void> _startApp() async {
+    final done = SharedPrefs.getString('onboarding_done') == 'true';
     await Future.delayed(const Duration(milliseconds: 2200));
     if (!mounted) return;
-    context.go('/home');
+    if (done) {
+      context.go('/login');
+    } else {
+      context.go('/onboarding');
+    }
   }
 
   @override

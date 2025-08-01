@@ -3,7 +3,7 @@ import 'package:app_riderguard/core/constants/colors_value.dart';
 import 'package:app_riderguard/core/constants/fonts.dart';
 import 'package:app_riderguard/core/utils/assets_helper.dart';
 import 'package:app_riderguard/module/general/viewModel/home_view_model.dart';
-import 'package:app_riderguard/module/general/viewModel/widget/app_bar_base.dart';
+import 'package:app_riderguard/module/general/widget/app_bar_base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
