@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
             }
             return supportedLocales.first;
           },
-          localizationsDelegates: const [
+          localizationsDelegates: [
             AppLocalizationsDelegate(),
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,

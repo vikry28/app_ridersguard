@@ -19,5 +19,8 @@ class ApiEndpoints {
   // Endpoint paths
   static const login = '/auth/login';
   static const register = '/auth/register';
+  static const logout = '/auth/logout';
+  static const getMe = '/users/me';
+  static const updateFoto = '/users/update-photo';
   // Tambahkan endpoint lainnya...
 }

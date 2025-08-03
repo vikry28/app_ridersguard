@@ -9,6 +9,7 @@ import 'package:app_riderguard/core/widget/custom_button.dart';
 import 'package:app_riderguard/core/widget/base_container.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:app_riderguard/core/constants/colors_value.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -69,7 +70,7 @@ class LoginView extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: vm.forgotPassword,
+                    onPressed: () => context.push('/ForgotPassword'),
                     child: Text(
                       context.tr('forgot_password'),
                       style: AppFonts.captionFont.copyWith(color: Colors.black),
@@ -126,7 +127,7 @@ class LoginView extends StatelessWidget {
                       style: AppFonts.bodyFont,
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () => context.push('/register'),
                       child: Text(
                         context.tr('sign_up'),
                         style: AppFonts.buttonFont.copyWith(

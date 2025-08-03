@@ -10,21 +10,18 @@ class BottomNavBarView extends ViewModelBase {
   final List<String> paths = [
     '/home',
     '/menu',
-    '/notifikasi',
-    '/pencarian',
+    '/search',
+    '/profile',
     '/tengah',
   ];
 
   void selectTab(BuildContext context, int index) {
+    if (_selectedIndex == index) return;
     _selectedIndex = index;
     notifyListeners();
     context.go(paths[index]);
   }
 
   @override
-  Future<void> init() async {
-    // setLoading(true);
-    // setLoading(false);
-    // notifyListeners();
-  }
+  Future<void> init() async {}
 }

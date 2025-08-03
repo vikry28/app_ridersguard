@@ -1,46 +1,52 @@
-import 'package:app_riderguard/core/widget/app_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:app_riderguard/core/widget/app_loading.dart';
 import 'view_model_base.dart';
 
-final _viewModelProviderMap =
-    <Type, AutoDisposeChangeNotifierProvider<ViewModelBase>>{};
-
-AutoDisposeChangeNotifierProvider<T>
-    autoViewModelProvider<T extends ViewModelBase>(T Function() creator) {
-  if (_viewModelProviderMap[T] == null) {
-    _viewModelProviderMap[T] =
-        ChangeNotifierProvider.autoDispose<T>((ref) => creator())
-            as AutoDisposeChangeNotifierProvider<ViewModelBase>;
-  }
-  return _viewModelProviderMap[T]! as AutoDisposeChangeNotifierProvider<T>;
-}
-
-class BaseView<T extends ViewModelBase> extends ConsumerWidget {
+class BaseView<T extends ViewModelBase> extends ConsumerStatefulWidget {
   final T Function() viewModelBuilder;
+  final void Function(T viewModel)? onModelReady;
   final Widget Function(BuildContext context, T viewModel, WidgetRef ref)
       builder;
-  final void Function(T viewModel)? onModelReady;
 
   const BaseView({
     super.key,
     required this.viewModelBuilder,
-    required this.builder,
     this.onModelReady,
+    required this.builder,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final provider = autoViewModelProvider<T>(viewModelBuilder);
-    final viewModel = ref.watch(provider);
+  ConsumerState<BaseView<T>> createState() => _BaseViewState<T>();
+}
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      onModelReady?.call(viewModel);
+class _BaseViewState<T extends ViewModelBase>
+    extends ConsumerState<BaseView<T>> {
+  late final AutoDisposeChangeNotifierProvider<T> provider;
+
+  @override
+  void initState() {
+    super.initState();
+    provider = ChangeNotifierProvider.autoDispose<T>((ref) {
+      return widget.viewModelBuilder();
     });
+
+    Future.microtask(() async {
+      final viewModel = ref.read(provider);
+      if (!viewModel.isInitialized) {
+        await viewModel.init();
+        widget.onModelReady?.call(viewModel);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = ref.watch(provider);
 
     return LoadingOverlay(
       isLoading: viewModel.isLoading,
-      child: builder(context, viewModel, ref),
+      child: widget.builder(context, viewModel, ref),
     );
   }
 }

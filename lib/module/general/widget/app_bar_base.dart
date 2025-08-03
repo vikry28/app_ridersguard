@@ -1,3 +1,4 @@
+import 'package:app_riderguard/core/constants/colors_value.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,7 +22,7 @@ class AppBarBase extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      backgroundColor: Colors.white,
+      backgroundColor: ColorsValue.background,
       automaticallyImplyLeading: false,
       leading: showBackButton
           ? IconButton(

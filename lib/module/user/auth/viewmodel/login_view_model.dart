@@ -2,7 +2,6 @@
 
 import 'package:app_riderguard/core/base/view_model_base.dart';
 import 'package:app_riderguard/core/networks/api_base.dart';
-import 'package:app_riderguard/core/utils/logger.dart';
 import 'package:app_riderguard/core/utils/shared_prefs.dart';
 import 'package:app_riderguard/core/widget/app_dialog.dart';
 import 'package:app_riderguard/module/user/auth/api/auth_api.dart';
@@ -37,8 +36,6 @@ class LoginViewModel extends ViewModelBase {
 
     try {
       final Map response = await api.login(data: data);
-      logger.i('Login response: $response');
-
       if (response['status'] == 'success') {
         final String message = response['message'] ?? 'Login berhasil';
         final Map dataMap = response['data'] ?? {};
@@ -69,29 +66,23 @@ class LoginViewModel extends ViewModelBase {
         );
       }
     } on ApiException catch (e) {
-      logger.e('Login API exception', error: e);
-
       AppDialog.show(
         context,
         title: 'Login Gagal',
         message: e.message,
         type: DialogType.error,
       );
-    } catch (e, stackTrace) {
-      logger.e('Login unknown error', error: e, stackTrace: stackTrace);
-
+    } catch (e) {
       AppDialog.show(
         context,
         title: 'Terjadi Kesalahan',
-        message: 'Gagal login. Coba lagi nanti.',
+        message: '$e',
         type: DialogType.error,
       );
     } finally {
       setLoading(false);
     }
   }
-
-  void forgotPassword() {}
 
   void loginWithGoogle() {}
   void loginWithSSO() {}

@@ -39,10 +39,16 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   }
 
   Future<void> _startApp() async {
-    final done = SharedPrefs.getString('onboarding_done') == 'true';
     await Future.delayed(const Duration(milliseconds: 2200));
+
+    final isLoggedIn = await SessionHelper.isLoggedIn();
+    final onboardingDone = await SessionHelper.isOnboardingDone();
+
     if (!mounted) return;
-    if (done) {
+
+    if (isLoggedIn) {
+      context.go('/home');
+    } else if (onboardingDone) {
       context.go('/login');
     } else {
       context.go('/onboarding');

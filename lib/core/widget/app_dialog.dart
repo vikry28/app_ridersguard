@@ -50,7 +50,7 @@ class AppDialog {
             padding: EdgeInsets.only(bottom: 16.h),
             child: TextButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.of(context, rootNavigator: true).maybePop();
                 if (onConfirm != null) onConfirm();
               },
               style: TextButton.styleFrom(

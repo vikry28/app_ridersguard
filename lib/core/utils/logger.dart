@@ -8,4 +8,16 @@ final logger = Logger(
     colors: true,
     printEmojis: true,
   ),
+  output: SinglePrintOutput(),
 );
+
+class SinglePrintOutput extends LogOutput {
+  @override
+  void output(OutputEvent event) {
+    for (var line in event.lines) {
+      // Hanya cetak sekali
+      // ignore: avoid_print
+      print(line);
+    }
+  }
+}

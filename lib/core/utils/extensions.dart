@@ -25,4 +25,5 @@ extension StringExt on String {
 
 extension TranslateExt on BuildContext {
   String tr(String key) => AppLocalizations.of(this)!.translate(key);
+  Locale get locale => Localizations.localeOf(this);
 }
