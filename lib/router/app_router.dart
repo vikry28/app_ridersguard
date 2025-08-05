@@ -1,3 +1,4 @@
+import 'package:app_riderguard/core/widget/page_not_found.dart';
 import 'package:app_riderguard/module/general/view/home_view.dart';
 import 'package:app_riderguard/module/general/view/bottom_nav_home_view.dart';
 import 'package:app_riderguard/module/general/view/notification_view.dart';
@@ -22,6 +23,7 @@ import 'package:flutter/material.dart';
 class AppRouter {
   static final GoRouter router = GoRouter(
     initialLocation: '/',
+    errorBuilder: (context, state) => const PageNotFoundView(),
     routes: [
       GoRoute(
         path: '/',

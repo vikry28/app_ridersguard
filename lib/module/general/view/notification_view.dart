@@ -3,6 +3,8 @@ import 'package:app_riderguard/core/constants/colors_value.dart';
 import 'package:app_riderguard/core/constants/fonts.dart';
 import 'package:app_riderguard/core/utils/extensions.dart';
 import 'package:app_riderguard/core/widget/base_container.dart';
+import 'package:app_riderguard/core/widget/no_data_found.dart';
+import 'package:app_riderguard/core/widget/refreshable.dart';
 import 'package:app_riderguard/module/general/model/notification_item.dart';
 import 'package:app_riderguard/module/general/viewModel/notification_view_model.dart';
 import 'package:flutter/material.dart';
@@ -28,53 +30,58 @@ class NotificationView extends StatelessWidget {
           body: BaseContainer(
             isScrollable: false,
             padding: EdgeInsets.zero,
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(vertical: 8.h),
-              itemCount: vm.groupedNotifications.length,
-              itemBuilder: (context, index) {
-                final section =
-                    vm.groupedNotifications.entries.elementAt(index);
-                final notifications = section.value;
+            child: RefreshableWidget(
+                onRefresh: () async => vm.init(),
+                builder: (controller) => vm.groupedNotifications.isNotEmpty
+                    ? ListView.builder(
+                        padding: EdgeInsets.symmetric(vertical: 8.h),
+                        itemCount: vm.groupedNotifications.length,
+                        itemBuilder: (context, index) {
+                          final section =
+                              vm.groupedNotifications.entries.elementAt(index);
+                          final notifications = section.value;
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: index > 0 ? 24.h : 12.h,
-                        bottom: 12.h,
-                        left: 16.w,
-                        right: 16.w,
-                      ),
-                      child: Text(
-                        section.key,
-                        style: AppFonts.titleFont.copyWith(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    ...List.generate(notifications.length, (i) {
-                      final notif = notifications[i];
-                      return Column(
-                        children: [
-                          _buildNotificationTile(notif),
-                          if (i < notifications.length - 1)
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16.w),
-                              child: Divider(
-                                color: Colors.grey.shade300,
-                                height: 1.h,
-                                thickness: 1,
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  top: index > 0 ? 24.h : 12.h,
+                                  bottom: 12.h,
+                                  left: 16.w,
+                                  right: 16.w,
+                                ),
+                                child: Text(
+                                  section.key,
+                                  style: AppFonts.titleFont.copyWith(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                               ),
-                            ),
-                        ],
-                      );
-                    }),
-                  ],
-                );
-              },
-            ),
+                              ...List.generate(notifications.length, (i) {
+                                final notif = notifications[i];
+                                return Column(
+                                  children: [
+                                    _buildNotificationTile(notif),
+                                    if (i < notifications.length - 1)
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 16.w),
+                                        child: Divider(
+                                          color: Colors.grey.shade300,
+                                          height: 1.h,
+                                          thickness: 1,
+                                        ),
+                                      ),
+                                  ],
+                                );
+                              }),
+                            ],
+                          );
+                        },
+                      )
+                    : NoDataFoundWidget()),
           ),
         );
       },

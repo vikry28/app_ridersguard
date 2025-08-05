@@ -6,6 +6,9 @@ class AssetsHelper {
   //Animations
   static const introAnimation = '${animation}Bouncing Nike.json';
   static const loading = '${animation}Glow loading.json';
+  static const refresh = '${animation}Sandy Loading.json';
+  static const pagenotfound = '${animation}Under Construction.json';
+  static const notfounddata = '${animation}No Data.json';
 
   //bahasa
   static const indoLang = '${lang}id.json';

@@ -1,4 +1,5 @@
 import 'package:app_riderguard/core/base/base_view.dart';
+import 'package:app_riderguard/core/constants/colors_value.dart';
 import 'package:app_riderguard/core/constants/fonts.dart';
 import 'package:app_riderguard/core/utils/extensions.dart';
 import 'package:app_riderguard/core/widget/base_container.dart';
@@ -33,6 +34,7 @@ class UserInfoView extends StatelessWidget {
                   ))
             ],
           ),
+          backgroundColor: ColorsValue.background,
           body: BaseContainer(
             isScrollable: true,
             showScrollbar: true,
