@@ -8,4 +8,14 @@ class AppThemes {
     colorScheme: ColorScheme.fromSeed(seedColor: ColorsValue.blueAccent),
     useMaterial3: true,
   );
+
+  static final darkTheme = ThemeData(
+    brightness: Brightness.dark,
+    fontFamily: AppFonts.defaultFont.fontFamily,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: ColorsValue.blueAccent,
+      brightness: Brightness.dark,
+    ),
+    useMaterial3: true,
+  );
 }

@@ -21,8 +21,9 @@ class VerifyCodeView extends StatelessWidget {
       builder: (context, vm, _) => Scaffold(
         appBar: AppBarBase(
           title: context.tr('verify_email_view'),
+          centerTitle: false,
         ),
-        // backgroundColor: ColorsValue.background,
+        backgroundColor: ColorsValue.background,
         body: BaseContainer(
           isScrollable: true,
           padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -52,7 +53,7 @@ class VerifyCodeView extends StatelessWidget {
               SizedBox(height: 16.h),
               Center(
                 child: TextButton(
-                  onPressed: vm.canResend ? () => vm.resendCode() : null,
+                  onPressed: vm.canResend ? () => vm.resendCode(context) : null,
                   child: Text(
                     vm.canResend
                         ? context.tr('resend_code')

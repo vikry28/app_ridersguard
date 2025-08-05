@@ -20,7 +20,11 @@ class ApiEndpoints {
   static const login = '/auth/login';
   static const register = '/auth/register';
   static const logout = '/auth/logout';
+  static const verify = '/auth/verify';
+  static const resendcode = '/auth/resend-code';
+  static const deleteaccount = '/auth/delete';
   static const getMe = '/users/me';
   static const updateFoto = '/users/update-photo';
+  static const updateProfile = '/users/update-profile';
   // Tambahkan endpoint lainnya...
 }

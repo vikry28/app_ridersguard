@@ -3,6 +3,7 @@ import 'package:app_riderguard/core/constants/fonts.dart';
 import 'package:app_riderguard/core/utils/date_utils.dart';
 import 'package:app_riderguard/core/utils/extensions.dart';
 import 'package:app_riderguard/core/widget/base_container.dart';
+import 'package:app_riderguard/core/widget/custom_button.dart';
 import 'package:app_riderguard/core/widget/profile_avatar.dart';
 import 'package:app_riderguard/core/widget/profile_item_swith.dart';
 import 'package:app_riderguard/core/widget/view_image.dart';
@@ -10,6 +11,7 @@ import 'package:app_riderguard/module/general/widget/app_bar_base.dart';
 import 'package:flutter/material.dart';
 import 'package:app_riderguard/core/base/base_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import '../viewmodel/profile_view_model.dart';
 
 class ProfileView extends StatelessWidget {
@@ -20,7 +22,7 @@ class ProfileView extends StatelessWidget {
     return BaseView<ProfileViewModel>(
       viewModelBuilder: () => ProfileViewModel(),
       onModelReady: (vm) => vm.init(),
-      builder: (context, viewModel, ref) {
+      builder: (c, viewModel, ref) {
         return Scaffold(
           appBar: AppBarBase(
             title: context.tr('profile'),
@@ -69,15 +71,15 @@ class ProfileView extends StatelessWidget {
                 ),
                 SizedBox(height: 32.h),
                 Text(
-                  context.tr('profile'),
+                  context.tr('account'),
                   style:
                       AppFonts.bodyFont.copyWith(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 12.h),
                 ProfileItem(
                   icon: Icons.person_outline,
-                  label: context.tr('manage_user'),
-                  onTap: () {},
+                  label: context.tr('user_info'),
+                  onTap: () => context.push('/profile/user_info'),
                 ),
                 SizedBox(height: 24.h),
                 Text(
@@ -89,7 +91,7 @@ class ProfileView extends StatelessWidget {
                 ProfileItem(
                   icon: Icons.notifications_none,
                   label: context.tr('notifications'),
-                  onTap: () {},
+                  onTap: () => context.push('/setting/notification'),
                 ),
                 SizedBox(height: 12.h),
                 ProfileItemSwitch(
@@ -98,42 +100,50 @@ class ProfileView extends StatelessWidget {
                   value: false,
                   onChanged: (val) => (val),
                 ),
+                SizedBox(height: 12.h),
                 ProfileItem(
                   icon: Icons.fingerprint,
                   label: context.tr('biometrics'),
-                  onTap: () {},
+                  onTap: () => context.push('/settings/biometric'),
                 ),
                 SizedBox(height: 12.h),
                 ProfileItem(
                   icon: Icons.language,
                   label: context.tr('language'),
-                  onTap: () {},
+                  onTap: () => context.push('/settings/language'),
                 ),
                 SizedBox(height: 12.h),
                 ProfileItem(
                   icon: Icons.lock_outline,
                   label: context.tr('privacy_policy'),
-                  onTap: () {},
+                  onTap: () => context.push('/setting/privacy'),
                 ),
                 SizedBox(height: 12.h),
                 ProfileItem(
                   icon: Icons.help_outline,
                   label: context.tr('faq'),
-                  onTap: () {},
+                  onTap: () => context.push('/setting/faq'),
                 ),
+                SizedBox(height: 12.h),
                 ProfileItem(
                   icon: Icons.info_outline,
                   label: context.tr('app_version'),
                   trailingText: viewModel.version ?? '-',
                   showArrow: false,
-                  onTap: null,
+                  onTap: () => context.push('/setting/app_version'),
                 ),
-                SizedBox(height: 12.h),
-                ProfileItem(
-                  icon: Icons.logout_outlined,
+                SizedBox(height: 20.h),
+                CustomButton(
                   label: context.tr('logout'),
-                  onTap: () => viewModel.logoutUser(context),
+                  onPressed: () => viewModel.logoutUser(context),
                 ),
+                SizedBox(height: 20.h),
+                // ProfileItem(
+                //   icon: Icons.logout_outlined,
+                //   label: context.tr('logout'),
+                //   onTap: () => viewModel.logoutUser(context),
+                //   showArrow: false,
+                // ),
               ],
             ),
           ),

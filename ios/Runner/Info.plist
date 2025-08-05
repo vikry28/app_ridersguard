@@ -49,5 +49,7 @@
 	<string>We need camera access to take profile pictures.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need photo library access to choose profile pictures.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Why is my app authenticating using face id?</string>
 </dict>
 </plist>

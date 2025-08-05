@@ -27,10 +27,14 @@ class LoginView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(
-                  AssetsHelper.logo,
-                  height: 70.w,
-                  width: 70.w,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20.r),
+                  child: Image.asset(
+                    AssetsHelper.logo,
+                    width: 100.w,
+                    height: 100.w,
+                    fit: BoxFit.contain,
+                  ),
                 ),
                 SizedBox(height: 20.w),
                 Text(

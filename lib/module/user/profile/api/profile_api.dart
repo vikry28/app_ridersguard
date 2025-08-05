@@ -9,6 +9,10 @@ class ProfileApi extends ApiBase {
     return await get(ApiEndpoints.getMe, withAuth: true);
   }
 
+  Future<Map> updateProfile(Map<String, String> data) async {
+    return await put(ApiEndpoints.updateProfile, data, withAuth: true);
+  }
+
   Future<StreamedResponse> updatePhoto(File file) async {
     return await putMultipart(
       ApiEndpoints.updateFoto,
@@ -21,5 +25,9 @@ class ProfileApi extends ApiBase {
 
   Future<Map> logout() async {
     return await post(ApiEndpoints.logout, {}, withAuth: true);
+  }
+
+  Future<Map> deleteAccount({Map<String, dynamic>? data}) async {
+    return await post(ApiEndpoints.deleteaccount, data!, withAuth: true);
   }
 }

@@ -19,27 +19,12 @@ class HomeViewModel extends ViewModelBase {
 
   @override
   Future<void> init() async {
+    setLoading(true);
     // await getInfo();
     final now = DateTime.now();
     dayNumber = DateFormat('d').format(now);
     monthYear = DateFormat('MMMM yyyy').format(now);
-    notifyListeners();
+    // notifyListeners();
+    setLoading(false);
   }
-
-  // Future<void> getInfo() async {
-  //   try {
-  //     // setLoading(true);
-  //     Map response = await apiGeneral.generalInfo();
-
-  //     if (response['status'] == 'success') {
-  //       logger.i("General Info: ${response['data']}");
-  //     } else {
-  //       logger.i("General Info: $response");
-  //     }
-  //     // setLoading(false);
-  //     notifyListeners();
-  //   } catch (e) {
-  //     logger.e("Error fetching general info: $e");
-  //   }
-  // }
 }

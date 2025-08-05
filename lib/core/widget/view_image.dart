@@ -55,7 +55,7 @@ class ViewImageDialog extends StatelessWidget {
           child: InteractiveViewer(
             child: Image(
               image: _getImageProvider(),
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) => const Icon(
                 Icons.broken_image,
                 color: Colors.white,

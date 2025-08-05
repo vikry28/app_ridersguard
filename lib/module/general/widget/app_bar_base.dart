@@ -24,6 +24,7 @@ class AppBarBase extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       backgroundColor: ColorsValue.background,
       automaticallyImplyLeading: false,
+      scrolledUnderElevation: 0,
       leading: showBackButton
           ? IconButton(
               icon:

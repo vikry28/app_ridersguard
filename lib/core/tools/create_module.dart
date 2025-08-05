@@ -136,7 +136,7 @@ class ${pascal}Model {
 String _apiTemplate(String pascal) => '''
 import '../model/${_toSnakeCase(pascal)}_model.dart';
 
-class ${pascal}Api {
+class ${pascal}Api extends ApiBase {
   Future<List<${pascal}Model>> fetch${pascal}s() async {
     await Future.delayed(const Duration(seconds: 1));
     return [${pascal}Model(id: 1, name: 'Contoh')];
@@ -197,17 +197,16 @@ void appendRouteToRouter(String fullPath, String pascalCase) {
 
   final content = file.readAsStringSync();
   final segments = fullPath.split('/');
-  // ignore: prefer_interpolation_to_compose_strings
-  final routePath = '/' + segments.join('/');
+  final routePath = '/${segments.join('/')}';
+
   final importPath =
       'package:app_riderguard/module/$fullPath/view/${segments.last}_view.dart';
-
   final importStatement = "import '$importPath';";
   final newRoute = '''
-    GoRoute(
-      path: '$routePath',
-      builder: (context, state) => const ${pascalCase}View(),
-    ),''';
+      GoRoute(
+        path: '$routePath',
+        builder: (context, state) => const ${pascalCase}View(),
+      ),''';
 
   if (content.contains(importStatement) ||
       content.contains("path: '$routePath'")) {
@@ -215,19 +214,21 @@ void appendRouteToRouter(String fullPath, String pascalCase) {
     return;
   }
 
-  final updatedContent = content.replaceFirst(
-    RegExp(r"(import\s+'package:[^']+;\n)(?!import)"),
-    "$importStatement\n\\1",
+  // 🟢 Tambahkan import sebelum baris pertama 'import package:go_router/go_router.dart';
+  final importInserted = content.replaceFirstMapped(
+    RegExp(r"(import\s+'package:go_router/go_router\.dart';)"),
+    (match) => "$importStatement\n${match.group(0)}",
   );
 
-  final newContent = updatedContent.replaceFirstMapped(
-    RegExp(r'routes:\s*\[\s*((.|\s)*?)\]'),
+  // 🟢 Tambahkan GoRoute ke dalam routes utama GoRouter
+  final updatedRoutes = importInserted.replaceFirstMapped(
+    RegExp(r'routes:\s*\[\s*((?:.|\s)*?)\n\s*\]', multiLine: true),
     (match) {
-      final existingRoutes = match.group(1)!;
-      return 'routes: [\n$existingRoutes\n$newRoute\n]';
+      final existingRoutes = match.group(1);
+      return 'routes: [\n$existingRoutes\n$newRoute\n  ]';
     },
   );
 
-  file.writeAsStringSync(newContent);
+  file.writeAsStringSync(updatedRoutes);
   print('✅ Route $routePath ditambahkan ke app_router.dart');
 }
